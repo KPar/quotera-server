@@ -38,15 +38,6 @@ async function addBook(req, res, next) {
     }
 }
 
-async function deleteBook(req, res, next) {
-    try {
-        booksModel.deleteBook(req.params.bookID);
-        res.sendStatus(200);
-    } catch (error) {
-        res.json({message: "failed", error});
-    }
-}
-
 async function getBooksUserReflected(req, res, next) {
     try {
         const result = await booksModel.getBooksUserReflected(req.params.userID);
@@ -56,4 +47,4 @@ async function getBooksUserReflected(req, res, next) {
     }
 }
 
-module.exports = {getBook, getBookByISBN, addBook, deleteBook, getBooksUserReflected}
+module.exports = {getBook, getBookByISBN, addBook, getBooksUserReflected}

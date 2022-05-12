@@ -1,5 +1,4 @@
-const reflectionsModel = require('../models/reflectionsModel'); //work since if file not specified, node looks at file named index.js
-
+const reflectionsModel = require('../models/reflectionsModel'); 
 
 async function getReflection(req, res, next) {
     try {

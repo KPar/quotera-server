@@ -28,9 +28,12 @@ function initialize(passport) {
     }
     passport.use(new LocalStrategy(verify))
 
-    passport.serializeUser((user, done) => done(null, user.user_id));
-    passport.deserializeUser((id, done) => {
-        return done(null, usersModel.getUser(id))
+    passport.serializeUser((user, done) => {
+        done(null, user.user_id)
+    });
+    passport.deserializeUser(async (user_id, done) => {
+        const userObject = await usersModel.getUser(user_id)
+        return done(null, userObject.rows[0])
     });
 
 }

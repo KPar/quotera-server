@@ -15,6 +15,4 @@ router.get('/isbn/:isbn', booksController.getBookByISBN);
 
 router.post('/', authentication.checkAuthenticated, parser, booksController.addBook);
 
-router.delete('/:bookID', authentication.checkAuthenticated, booksController.deleteBook);
-
 module.exports = router;
