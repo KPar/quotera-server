@@ -6,7 +6,6 @@ const authEditOrDeleteReflection = async (req, res, next) => {
     if(reflection.rows[0]==undefined){
         res.sendStatus(404);
     }else if(reflection.rows[0].user_id==req.user.user_id){
-        res.sendStatus(200);
         next();
     }else{
         res.sendStatus(403);
@@ -15,7 +14,6 @@ const authEditOrDeleteReflection = async (req, res, next) => {
 
 const authCreateReflection = async (req, res, next) => {
     if(req.body.userID==req.user.user_id){
-        res.sendStatus(200);
         next();
     }else{
         res.sendStatus(403);

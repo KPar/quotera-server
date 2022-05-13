@@ -13,19 +13,35 @@ const createUser = (username, email, password) => {
 }
 
 const removeUser = (id) => {
-    return db.pool.query(`DELETE FROM users WHERE user_id = '${id}'`);
+    return db.pool.query(`DELETE FROM users WHERE user_id = '${id}'`,(err)=>{
+        if(err){
+            console.error('err from callback: ' + err.stack)
+        }
+    });
 }
 
 const updateUsername = (id, newUsername) => {
-    return db.pool.query(`UPDATE users SET username='${newUsername}', date_modified=current_timestamp WHERE user_id = '${id}'`);
+    return db.pool.query(`UPDATE users SET username='${newUsername}', date_modified=current_timestamp WHERE user_id = '${id}'`,(err)=>{
+        if(err){
+            console.error('err from callback: ' + err.stack)
+        }
+    });
 }
 
 const updateEmail = (id, newEmail) => {
-    return db.pool.query(`UPDATE users SET email='${newEmail}',date_modified=current_timestamp WHERE user_id = '${id}'`);
+    return db.pool.query(`UPDATE users SET email='${newEmail}',date_modified=current_timestamp WHERE user_id = '${id}'`,(err)=>{
+        if(err){
+            console.error('err from callback: ' + err.stack)
+        }
+    });
 }
 
 const updatePassword = (id, newPassword) => {
-    return db.pool.query(`UPDATE users SET password='${newPassword}',date_modified=current_timestamp WHERE user_id = '${id}'`);
+    return db.pool.query(`UPDATE users SET password='${newPassword}',date_modified=current_timestamp WHERE user_id = '${id}'`,(err)=>{
+        if(err){
+            console.error('err from callback: ' + err.stack)
+        }
+    });
 }
 
 module.exports = {

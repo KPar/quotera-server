@@ -30,8 +30,7 @@ async function getBookByISBN(req, res, next) {
 
 async function addBook(req, res, next) {
     try {
-        const {title, author, isbn} = req.body;
-        booksModel.addBook(title, author, isbn);
+        booksModel.addBook(req.title, req.author, req.isbn);
         res.sendStatus(200);
     } catch (error) {
         res.json({message: "failed", error});
