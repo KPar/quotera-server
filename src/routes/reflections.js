@@ -4,6 +4,8 @@ const router = express.Router();
 const authentication = require('../middlewares/authentication')
 var bodyParser = require('body-parser');
 const { authEditOrDeleteReflection,authCreateReflection } = require('../middlewares/permissions/reflectionsPermisions');
+const reflectionCreateSchema = require('../validations/reflectionsValidation');
+const { validation } = require('../middlewares/validationMiddleware');
 // create application/json parser
 const parser = bodyParser.json();
 
@@ -14,7 +16,7 @@ router.route('/:reflectionID')
 router.get('/users/:userID', parser, reflectionsController.getReflectionsByUser);
 router.get('/books/:bookID', parser, reflectionsController.getReflectionsOfBook);
 
-router.post('/', authentication.checkAuthenticated, parser, authCreateReflection, reflectionsController.createReflection);
+router.post('/', validation(reflectionCreateSchema), authentication.checkAuthenticated, parser, authCreateReflection, reflectionsController.createReflection);
 
 router.put('/:reflectionID', authentication.checkAuthenticated, parser, authEditOrDeleteReflection, reflectionsController.updateReflection);
 

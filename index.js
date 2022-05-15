@@ -2,6 +2,7 @@ if (process.env.NODE_ENV!== 'production'){
   require('dotenv').config()
 }
 
+const cors = require('cors')
 const express = require('express');
 const session = require('express-session');
 const usersController = require('./src/controllers/usersController')
@@ -12,16 +13,24 @@ const users = require('./src/routes/users.js');
 const reflections = require('./src/routes/reflections.js');
 const passport = require('passport');
 const initialize = require('./src/config/passport-config');
-
+const { validation } = require('./src/middlewares/validationMiddleware');
+const { userRegisterSchema } = require('./src/validations/usersValidation');
+const { checkAuthenticated } = require('./src/middlewares/authentication');
 const app = express();
-const port = 3000;
+const port = 5500;
 
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true
+  })
+)
 
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true,
-  cookie: { maxAge: 1000 * 60 * 60 * 24 } //one day expiration
+  cookie: {maxAge: 1000 * 60 * 60 * 24 } //one day expiration
 }));
 
 app.use(passport.initialize());
@@ -35,18 +44,24 @@ app.use('/users', users);
 app.use('/reflections', reflections);
 
 
-app.post('/register', parser, usersController.createUser);
+app.post('/register', parser, validation(userRegisterSchema), usersController.createUser);
 
-app.post('/login', parser, passport.authenticate('local', {failureMessage: true , successMessage:"yay"}), (req, res, next)=>{res.send("yay")});
+app.post('/login', 
+  parser, 
+  passport.authenticate('local', {failureMessage: true}), 
+  (req, res, next)=>{res.sendStatus(201)}
+);
 
 app.delete('/logout', (req, res) => {
   req.logOut();
-  res.send("logged out")
+  res.sendStatus(200)
 });
 
 app.get('/', function(req, res) {
-  res.send('Hello World!')
+  res.send('Welcome to the Quotera backend!')
 });
+
+app.get('/checkLoggedIn', parser, checkAuthenticated, (req, res, next)=>{res.json({isAuthenticated: true})});
 
 //starts up the server on specified port
 app.listen(process.env.PORT || port, function() {

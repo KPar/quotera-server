@@ -1,41 +1,31 @@
 const db = require('../config/dbConfig');
 
 const getBook = (id) => {
-    return db.pool.query(`SELECT * FROM books WHERE book_id = '${id}'`,(err)=>{
-        if(err){
-            console.error('err from callback: ' + err.stack)
-        }
-    });
+    return db.pool.query(`SELECT * FROM books WHERE book_id = '${id}'`);
+}
+
+const getBooks = (data) => {
+    return db.pool.query(`SELECT * FROM books WHERE LOWER(title) LIKE '${data}%' OR isbn LIKE '${data}%'`);
 }
 
 const getBookByISBN = (isbn) => {
-    return db.pool.query(`SELECT * FROM books WHERE isbn = '${isbn}'`,(err)=>{
-        if(err){
-            console.error('err from callback: ' + err.stack)
-        }
-    });
+    return db.pool.query(`SELECT * FROM books WHERE isbn = '${isbn}'`);
 }
 
 const addBook = (title, author, isbn) => {
     //validate that book isbn doesnt exist already in db
     return db.pool.query(`INSERT INTO books (title, author, isbn) 
-        VALUES ('${title}', '${author}', '${isbn}')`,(err)=>{
-            if(err){
-                console.error('err from callback: ' + err.stack)
-            }
-        });
+        VALUES ('${title}', '${author}', '${isbn}')`);
 }
 
 const getBooksUserReflected = (id) => {
-    return db.pool.query(`SELECT DISTINCT books.book_id, title, author FROM books INNER JOIN reflections ON books.book_id = reflections.book_id WHERE user_id=${id}`,(err)=>{
-        if(err){
-            console.error('err from callback: ' + err.stack)
-        }
-    });
+    return db.pool.query(`SELECT DISTINCT books.book_id, title, author FROM 
+    books INNER JOIN reflections ON books.book_id = reflections.book_id WHERE user_id=${id}`);
 }
 
 module.exports = {
 		getBook,
+        getBooks,
         getBookByISBN,
         addBook,
         getBooksUserReflected

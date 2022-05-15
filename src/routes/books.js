@@ -2,7 +2,7 @@ const express = require('express');
 const booksController = require('../controllers/booksController')
 const router = express.Router();
 const authentication = require('../middlewares/authentication')
-var bodyParser = require('body-parser')
+var bodyParser = require('body-parser');
 const parser = bodyParser.json();
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 
@@ -33,9 +33,12 @@ const authBook = async (req, res, next) => {
         console.log(err)
     }
 }
+router.get('/q', parser, booksController.getBooks);
+
 router.get('/user/:userID', booksController.getBooksUserReflected);
 
-router.get('/:bookID', booksController.getBook);
+router.get('/id/:bookID', booksController.getBook);
+
 
 router.get('/isbn/:isbn', booksController.getBookByISBN);
 

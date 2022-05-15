@@ -10,6 +10,7 @@ async function getReflection(req, res, next) {
         }
     } catch (error) {
         res.json({message: "failed", error});
+        return;
     }
 }
 
@@ -23,6 +24,7 @@ async function getReflectionsByUser(req, res, next) {
         }
     } catch (error) {
         res.json({message: "failed", error});
+        return;
     }
 }
 
@@ -36,6 +38,7 @@ async function getReflectionsOfBook(req, res, next) {
         }
     } catch (error) {
         res.json({message: "failed", error});
+        return;
     }
 }
 
@@ -51,6 +54,7 @@ async function createReflection(req, res, next) {
         res.sendStatus(200);
     } catch (error) {
         res.json({message: "failed", error});
+        return;
     }
 }
 
@@ -66,6 +70,7 @@ async function updateReflection(req, res, next) {
         res.sendStatus(200);
     } catch (error) {
         res.json({message: "failed", error});
+        return;
     }
 }
 
@@ -75,6 +80,7 @@ async function deleteReflection(req, res, next) {
         res.sendStatus(200);
     } catch (error) {
         res.json({message: "failed", error});
+        return;
     }
 }
 
