@@ -61,7 +61,7 @@ app.get('/', function(req, res) {
   res.send('Welcome to the Quotera backend!')
 });
 
-app.get('/checkLoggedIn', parser, checkAuthenticated, (req, res, next)=>{res.json({isAuthenticated: true})});
+app.get('/checkLoggedIn', parser, checkAuthenticated, (req, res, next)=>{res.json({userID: req.user.user_id, isAuthenticated: true})});
 
 //starts up the server on specified port
 app.listen(process.env.PORT || port, function() {

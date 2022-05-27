@@ -1,7 +1,11 @@
 const db = require('../config/dbConfig');
 
 const getUser = (id) => {
-    return db.pool.query(`SELECT * FROM users WHERE user_id = '${id}'`);
+    return db.pool.query(`SELECT user_id, username, email, date_modified, date_created FROM users WHERE user_id = '${id}'`);
+}
+
+const getUsername = (id) => {
+    return db.pool.query(`SELECT username FROM users WHERE user_id = '${id}'`);
 }
 
 const getUserByUsername = (username) => {
@@ -30,6 +34,7 @@ const updatePassword = (id, newPassword) => {
 
 module.exports = {
     getUser,
+    getUsername,
     getUserByUsername,
     createUser,
     removeUser,

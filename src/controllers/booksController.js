@@ -16,9 +16,9 @@ async function getBook(req, res, next) {
 }
 
 async function getBooks(req, res, next) {
-    console.log(req.body.data)
+    console.log(req.query.data)
     try {
-        const result = await booksModel.getBooks(req.body.data);
+        const result = await booksModel.getBooks(req.query.data);
         console.log(result);
         if(result.rows[0]===undefined){
             res.sendStatus(404);

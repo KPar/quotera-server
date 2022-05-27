@@ -34,7 +34,7 @@ async function getReflectionsOfBook(req, res, next) {
         if(result.rows[0]===undefined){
             res.sendStatus(404);
         }else{
-            res.json(result.rows[0]);
+            res.json(result.rows);
         }
     } catch (error) {
         res.json({message: "failed", error});
@@ -44,7 +44,7 @@ async function getReflectionsOfBook(req, res, next) {
 
 async function createReflection(req, res, next) {
     try {
-        await reflectionsModel.createReflection(req.body.userID, 
+        await reflectionsModel.createReflection(req.user.user_id, 
             req.body.bookID, 
             req.body.quote,
             req.body.reflection,

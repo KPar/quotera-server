@@ -12,15 +12,14 @@ const authEditOrDeleteReflection = async (req, res, next) => {
     }
 }
 
-const authCreateReflection = async (req, res, next) => {
+/*const authCreateReflection = async (req, res, next) => {
     if(req.body.userID==req.user.user_id){
         next();
     }else{
         res.sendStatus(403);
     }
-}
+}*/
 
 module.exports = {
-    authEditOrDeleteReflection,
-    authCreateReflection
+    authEditOrDeleteReflection
 }

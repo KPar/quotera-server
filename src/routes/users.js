@@ -10,12 +10,22 @@ const { userUpdateUsernameSchema, userUpdateEmailSchema, userUpdatePasswordSchem
 const { validation } = require('../middlewares/validationMiddleware');
 
 router.route('/:userID')
-        .get(authentication.checkAuthenticated,usersController.getUser)
+        .get(usersController.getUser)
         .delete(authentication.checkAuthenticated,authEditOrDeleteUser, usersController.removeUser);
 
-router.put('/:userID/username', validation(userUpdateUsernameSchema),  authentication.checkAuthenticated, parser, authEditOrDeleteUser, usersController.updateUsername);
-router.put('/:userID/email', validation(userUpdateEmailSchema),authentication.checkAuthenticated, parser, authEditOrDeleteUser, usersController.updateEmail);
-router.put('/:userID/password', validation(userUpdatePasswordSchema), authentication.checkAuthenticated, parser, authEditOrDeleteUser, usersController.updatePassword);
+router.get('/:userID/username', usersController.getUsername);
+
+router.put('/:userID/username', parser, validation(userUpdateUsernameSchema),  authentication.checkAuthenticated,  authEditOrDeleteUser, usersController.updateUsername);
+router.put('/:userID/email', parser, validation(userUpdateEmailSchema),authentication.checkAuthenticated, authEditOrDeleteUser, usersController.updateEmail);
+router.put('/:userID/password', parser,  validation(userUpdatePasswordSchema), authentication.checkAuthenticated, authEditOrDeleteUser, usersController.updatePassword);
+
+router.get('/:userID/auth', authentication.checkAuthenticated, (req,res,next)=>{
+        if(req.params.userID===req.user.user_id){
+                res.sendStatus(200);
+        }else{
+                res.sendStatus(401);
+        }
+});
 
 
 module.exports = router;

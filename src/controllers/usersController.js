@@ -17,6 +17,21 @@ async function getUser(req, res, next) {
     }
 }
 
+async function getUsername(req, res, next) {
+    try {
+        const result = await usersModel.getUsername(req.params.userID);
+        
+        if(result.rows[0]===undefined){
+            res.sendStatus(404);
+        }else{
+            res.json(result.rows[0]);
+        }
+    } catch (error) {
+        res.status(500).json({message: "failed", error});
+        return;
+    }
+}
+
 async function createUser(req, res, next) {
     try {
         const saltRounds = 10;
@@ -72,7 +87,8 @@ async function updatePassword(req, res, next) {
 }
 
 module.exports = {
-    getUser, 
+    getUser,
+    getUsername, 
     createUser,
     removeUser,
     updateEmail,
