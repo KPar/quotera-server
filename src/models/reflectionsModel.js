@@ -5,11 +5,11 @@ const getReflection = (reflectionID) => {
 }
 
 const getReflectionsByUser = (userID) => {
-    return db.pool.query(`SELECT * FROM reflections WHERE user_id = '${userID}'`);
+    return db.pool.query(`SELECT * FROM reflections WHERE user_id = '${userID}' ORDER BY date_modified DESC`);
 }
 
 const getReflectionsOfBook = (bookID) => {
-    return db.pool.query(`SELECT * FROM reflections WHERE book_id = '${bookID}'`);
+    return db.pool.query(`SELECT * FROM reflections WHERE book_id = '${bookID}' ORDER BY date_modified DESC`);
 }
 
 const createReflection = (userID, bookID, quote, reflection, category, isPublished) => {
