@@ -13,7 +13,7 @@ const getUserByUsername = (username) => {
 }
 
 const createUser = (username, email, password) => {
-    return db.pool.query(`INSERT INTO users(username, email, password, date_modified) VALUES ('${username}','${email}','${password}', current_timestamp)`);
+    return db.pool.query(`INSERT INTO users(username, email, password, date_modified, profile_bio, display_name) VALUES ('${username}','${email}','${password}', current_timestamp,'','')`);
 }
 
 const removeUser = (id) => {
