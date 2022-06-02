@@ -16,7 +16,6 @@ const authBook = async (req, res, next) => {
         }else{
             let bookRes = await fetch(`https://openlibrary.org/isbn/${req.body.isbn}.json`);
             let bookDataRes = await bookRes.json();
-            console.log(bookDataRes.title);     
             let worksRes = await fetch(`https://openlibrary.org${bookDataRes.works[0].key}.json`);
             let worksDataRes = await worksRes.json();
             let authorRes = await fetch(`https://openlibrary.org${worksDataRes.authors[0].author.key}.json`);
@@ -24,13 +23,11 @@ const authBook = async (req, res, next) => {
             req.title = bookDataRes.title;
             req.author = authorDataRes.name;
             req.isbn = req.body.isbn;
-            console.log(authorDataRes.name);
             next();
         }
 
     } catch(err) {
         res.send(err)
-        console.log(err)
     }
 }
 router.get('/q', parser, booksController.getBooks);

@@ -10,8 +10,6 @@ function initialize(passport) {
         const user = data.rows[0];
 
         if (user===undefined) { 
-            console.log("user")
-
               return done(null, false, { message: 'Username not found' });
           }; 
               

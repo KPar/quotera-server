@@ -12,7 +12,7 @@ async function getUser(req, res, next) {
             res.json(result.rows[0]);
         }
     } catch (error) {
-        res.status(500).json({message: "failed", error});
+        res.json({message: "failed", error}).status(500);
         return;
     }
 }
