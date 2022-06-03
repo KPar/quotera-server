@@ -30,7 +30,11 @@ app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true,
-  cookie: {maxAge: 7000 * 60 * 60 * 24 } //7 day expiration
+  proxy: true,
+  cookie: {
+    sameSite:'none',
+    maxAge: 7000 * 60 * 60 * 24
+  } //7 day expiration
 }));
 
 app.use(passport.initialize());
