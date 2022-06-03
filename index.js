@@ -21,7 +21,7 @@ const port = 5500;
 
 app.use(
   cors({
-    origin: ["http://localhost:3000","https://fancy-bunny-a40940.netlify.app"],
+    origin: ["http://localhost:3000","https://quotera.netlify.app"],
     credentials: true
   })
 )
