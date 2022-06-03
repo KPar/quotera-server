@@ -25,15 +25,16 @@ app.use(
     credentials: true
   })
 )
+app.set("trust proxy", 1);
 
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true,
-  proxy: true,
   cookie: {
-    sameSite:'none',
-    maxAge: 7000 * 60 * 60 * 24
+    maxAge: 7000 * 60 * 60 * 24,
+    sameSite: process.env.NODE_ENV === "production" ? 'none' : 'lax', // must be 'none' to enable cross-site delivery
+    secure: process.env.NODE_ENV === "production", // must be true if sameSite='none
   } //7 day expiration
 }));
 
