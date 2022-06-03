@@ -29,8 +29,8 @@ app.set("trust proxy", 1);
 
 app.use(session({
   secret: process.env.SESSION_SECRET,
-  resave: false,
-  saveUninitialized: true,
+  resave: true,
+  saveUninitialized: false,
   cookie: {
     maxAge: 7000 * 60 * 60 * 24,
     sameSite: process.env.NODE_ENV === "production" ? 'none' : 'lax', // must be 'none' to enable cross-site delivery
