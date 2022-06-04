@@ -21,7 +21,7 @@ const port = 5500;
 
 app.use(
   cors({
-    origin: ["http://localhost:3000","https://quotera.netlify.app"],
+    origin: ["http://localhost:3000","https://quotera.netlify.app","https://quotera-client.herokuapp.com"],
     credentials: true
   })
 )
@@ -33,7 +33,6 @@ app.use(session({
   saveUninitialized: true,
   cookie: {
     maxAge: 7000 * 60 * 60 * 24,
-    httpOnly: true,
     sameSite: process.env.NODE_ENV === "production" ? 'none' : 'lax', // must be 'none' to enable cross-site delivery
     secure: process.env.NODE_ENV === "production", // must be true if sameSite='none
   } //7 day expiration
