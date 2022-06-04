@@ -33,6 +33,7 @@ app.use(session({
   saveUninitialized: true,
   cookie: {
     maxAge: 7000 * 60 * 60 * 24,
+    httpOnly:true,
     sameSite: process.env.NODE_ENV === "production" ? 'none' : 'lax', // must be 'none' to enable cross-site delivery
     secure: process.env.NODE_ENV === "production", // must be true if sameSite='none
   } //7 day expiration
