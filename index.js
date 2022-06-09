@@ -38,12 +38,6 @@ app.use(session({
   } //7 day expiration
 }));
 
-// enable the "secure" flag on the cookie object
-app.use((req, res, next)=>{
-  req.session.cookie.secure = true;
-  next();
-});
-
 app.use(passport.initialize());
 app.use(passport.session());
 
