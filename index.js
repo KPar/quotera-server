@@ -21,7 +21,7 @@ const port = 5500;
 
 app.use(
   cors({
-    origin: ["http://localhost:3000","https://quotera.netlify.app","https://quotera-client.herokuapp.com", "https://www.quotera.kennyparedes.com/", "https://quotera.kennyparedes.com/"],
+    origin: ["http://localhost:3000","https://quotera.netlify.app","https://quotera-client.herokuapp.com", "https://www.quotera.kennyparedes.com", "https://quotera.kennyparedes.com"],
     credentials: true
   })
 )
